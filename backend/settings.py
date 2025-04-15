@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-vu5=s#1uf4l8%^uz105a)hm26abk%&81amvmz1ss+9w+mrabd9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['projetfac-ecoshop-aba0e7285826.herokuapp.com', 'localhost', '127.0.0.1']
+
 
 
 # Application definition
