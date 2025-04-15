@@ -28,6 +28,13 @@ DEBUG = True
 ALLOWED_HOSTS = ['projetfac-ecoshop-aba0e7285826.herokuapp.com', 'localhost', '127.0.0.1']
 
 
+from decouple import config
+
+API_KEY = config('API_KEY')
+SECRET_KEY = config('SECRET_KEY')
+NAME    =config('NAME')
+HOST = config('HOST')
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Application definition
 
@@ -84,10 +91,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
+        'NAME': NAME,
         'USER': 'postgres',
-        'PASSWORD': 'SImlxdvrPBOVfTlnzPHQbCGaaTLhsaPl',
-        'HOST': 'shuttle.proxy.rlwy.net',
+        'PASSWORD': SECRET_KEY,
+        'HOST':HOST,
         'PORT': '25317',
     }
 }

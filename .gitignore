@@ -1,0 +1,26 @@
+# Environnement Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.venv/
+*.env
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Heroku / deployment
+*.log
+
+# Git / secrets
+.env
