@@ -12,6 +12,8 @@ _EcoShop est un projet backend qui fournit une API REST avec des informations su
   - 🏷️ **Nom** / 📦 **Catégorie**
 
 ---
+🔏 Authentifcaiton : 
+   -**Un système d'authentification d'utilisateur basé sur les jetons jwt pour sécuriser l'accès des utilisateurs**
 
 ## 🛠️ Technologies utilisées
 
@@ -20,7 +22,7 @@ _EcoShop est un projet backend qui fournit une API REST avec des informations su
 - ⚙️ **Django** : framework backend principal
 - 🕸️ **ScrapAPI** : extraction des produits depuis Amazon
 - 🧠 **OpenAI** : génération automatique d’informations manquantes sur les produits
-
+-  🔑 **JWT (JSON Web Token)** : pour sécuriser les endpoints de l'API
 ---
 
 ## 📦 Objectif du projet
