@@ -46,15 +46,25 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Api_produits',
-    "rest_framework"
+    "rest_framework",
+    'corsheaders',
+    'rest_framework_simplejwt',
+    "users",
 ]
+AUTH_USER_MODEL = 'users.UtilisateurPersonnalise'
+CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
-    )
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
 }
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # ⚠️ doit être tout en haut !
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -95,7 +105,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': SECRET_KEY,
         'HOST':HOST,
-        'PORT': '25317',
+        'PORT': '20169',
     }
 }
 

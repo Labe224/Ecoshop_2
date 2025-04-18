@@ -1,12 +1,14 @@
 from .models import Produits
 from decouple import config
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 from .serialiezers import *
 from rest_framework.views import APIView
 from django.http import JsonResponse
 
 api_key_valid=config('API_KEY')
 class Liste_produits(APIView):
+    permission_classes = [AllowAny] 
     def get(self,request):
         produits=Produits.objects.all()
         nom = request.query_params.get('nom')
