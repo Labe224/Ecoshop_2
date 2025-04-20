@@ -27,3 +27,4 @@ staticfiles/
 
 # file data
 *.jsonl
+data.txt
