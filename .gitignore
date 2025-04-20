@@ -24,3 +24,6 @@ staticfiles/
 
 # Git / secrets
 .env
+
+# file data
+*.jsonl
