@@ -27,21 +27,19 @@ def extract_and_replace_asin(page,outfile): # fonction qui permet de scraper les
       
         for i in product_liste:
           asins.append(i['asin'])
-
         print("ASIN extraits :", asins)  # Vérification des ASIN extraits
 
-        if not asins:
+        if len(asins)==0:
+
             print("Aucun ASIN trouvé ! Vérifiez la structure du fichier.")
 
         # Écrire uniquement les ASIN dans le fichier (écrase le contenu précédent)
         with open("data.txt", 'a', encoding='utf-8') as file:
             for asin in asins:
-                if asin not in new_assin:
-                  file.write(asin + "\n")
-                else:
-                    print('assin existe')
+                file.write(asin + "\n")
 
         print("Fichier mis à jour avec succès !")
+
     except Exception as e:
         print(f"Erreur : {e}")
 
@@ -82,7 +80,7 @@ try:
             prod=liste_produit[i]
             prod['indice_ecolo']=calcul_ecolo(prod)
             try:
-                ligne_json = json.dumps(prod, ensure_ascii=False)
+                ligne_json = json.dumps(prod)
                 file.write(ligne_json + '\n')
                 print('ligne ajouté avec succès')
             except (TypeError, ValueError) as e:

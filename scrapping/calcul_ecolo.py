@@ -1,6 +1,6 @@
 import requests
 import json
-from decouple import config
+from decouple import config   # bibliothèque qui permet de recuperer les variables globales
 
 
 """ Programme qui nous permet de calculer la note écologie d'un produits """
@@ -47,7 +47,7 @@ note_label={'A':5,'A+++':5,'A++':10,'A+':5,'B':10,'C':15,'D':20,'E':25,'F':30,'G
 
 
 #fonction Info_IA qui utilise l'api de openIA pour nous fournir certains informations sur le produits 
-api_key_valid=config('API_KEY') # recuperation de la clé api pour OpenAI
+api_key_valid=config('API_KEY2') # recuperation de la clé api pour OpenAI
 def Info_IA(produit):
     API_KEY = api_key_valid
     url = "https://api.openai.com/v1/chat/completions"
@@ -121,9 +121,6 @@ def calcul_ecolo(produit): # fonction qui permet de calculer l'indice écologiqu
          note_nIA=0.1
 
     if 'classe_denergie' in produit['description']:
-      if 't' in produit['description']['classe_denergie']:
-        note_nIA += note_label['B']
-      else:
         l_energie = produit['description']['classe_denergie']
 
         if l_energie in note_label:  # Vérification que la clé existe dans note_label

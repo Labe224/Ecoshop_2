@@ -1,12 +1,11 @@
 # Environnement Python
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
-env/
-venv/
-.venv/
-*.env
+*.pyd
+*.pdb
 
 # Django
 db.sqlite3
