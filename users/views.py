@@ -6,7 +6,9 @@ from rest_framework.response import Response
 from rest_framework import status, generics
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.http import Http404
 from Api_produits.models import Produits
+from .models import HistoriqueCommande
 
 from .models import HistoriqueCommande, HistoriqueRecherche
 from .serializers import (
@@ -69,6 +71,7 @@ class ProfilVue(APIView):
 # Historique des commandes
 
 
+
 class HistoriqueCommandeVue(generics.ListCreateAPIView, generics.DestroyAPIView):
     serializer_class = HistoriqueCommandeSerializer
     permission_classes = [IsAuthenticated]
@@ -89,6 +92,16 @@ class HistoriqueCommandeVue(generics.ListCreateAPIView, generics.DestroyAPIView)
         serializer.save(utilisateur=utilisateur)
         utilisateur.points += points_du_produit
         utilisateur.save()
+
+    def get_object(self):
+        """
+        Récupère un historique de commande par le nom du produit.
+        """
+        nom = self.kwargs.get('nom')  # /user/commandes/<nom>/
+        try:
+            return HistoriqueCommande.objects.get(nomProduit=nom, utilisateur=self.request.user)
+        except HistoriqueCommande.DoesNotExist:
+            raise Http404("Historique introuvable avec ce nom.")
 
     def delete(self, request, *args, **kwargs):
         instance = self.get_object()
