@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status, generics
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+from Api_produits.models import Produits
 
 from .models import HistoriqueCommande, HistoriqueRecherche
 from .serializers import (
@@ -66,7 +67,9 @@ class ProfilVue(APIView):
 
 
 # Historique des commandes
-class HistoriqueCommandeVue(generics.ListCreateAPIView):
+
+
+class HistoriqueCommandeVue(generics.ListCreateAPIView, generics.DestroyAPIView):
     serializer_class = HistoriqueCommandeSerializer
     permission_classes = [IsAuthenticated]
 
@@ -75,9 +78,22 @@ class HistoriqueCommandeVue(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         utilisateur = self.request.user
+        nom_produit = self.request.data.get('nom_produit')
+
+        try:
+            produit = Produits.objects.get(nom=nom_produit)
+            points_du_produit = produit.points
+        except Produits.DoesNotExist:
+            points_du_produit = 0  # Aucun point si le produit est introuvable
+
         serializer.save(utilisateur=utilisateur)
-        utilisateur.points += 10
+        utilisateur.points += points_du_produit
         utilisateur.save()
+
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response({"message": "Historique supprimé avec succès."}, status=status.HTTP_204_NO_CONTENT)
 
 
 # Historique des recherches
