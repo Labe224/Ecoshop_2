@@ -82,7 +82,7 @@ class HistoriqueCommandeVue(generics.ListCreateAPIView, generics.DestroyAPIView)
 
         try:
             produit = Produits.objects.get(nom=nom_produit)
-            points_du_produit = produit.points
+            points_du_produit = produit.nb_point
         except Produits.DoesNotExist:
             points_du_produit = 0  # Aucun point si le produit est introuvable
 
