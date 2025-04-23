@@ -93,21 +93,16 @@ class HistoriqueCommandeVue(generics.ListCreateAPIView, generics.DestroyAPIView)
         utilisateur.points += points_du_produit
         utilisateur.save()
 
+class SupprimerCommandeParNomVue(generics.DestroyAPIView):
+    serializer_class = HistoriqueCommandeSerializer
+    permission_classes = [IsAuthenticated]
+
     def get_object(self):
-        """
-        Récupère un historique de commande par le nom du produit.
-        """
-        nom = self.kwargs.get('nom')  # /user/commandes/<nom>/
+        id = self.kwargs.get('id') 
         try:
-            return HistoriqueCommande.objects.get(nomProduit=nom, utilisateur=self.request.user)
+            return HistoriqueCommande.objects.get(id=id, utilisateur=self.request.user)
         except HistoriqueCommande.DoesNotExist:
             raise Http404("Historique introuvable avec ce nom.")
-
-    def delete(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.delete()
-        return Response({"message": "Historique supprimé avec succès."}, status=status.HTTP_204_NO_CONTENT)
-
 
 # Historique des recherches
 class HistoriqueRechercheVue(generics.ListCreateAPIView):
