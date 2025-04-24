@@ -5,7 +5,7 @@ from decouple import config   # bibliothèque qui permet de recuperer les variab
 
 """ Programme qui nous permet de calculer la note écologie d'un produits """
 
-produit={ # objet qui répresente un produits 
+produit={ # modèle qui répresente un produit
     "Nom":'',
     "Prix":0,
     "categorie":"",
@@ -103,7 +103,7 @@ Si une information est inconnue, donne une estimation plausible."""
 
 def calcul_ecolo(produit): # fonction qui permet de calculer l'indice écologique d'un produit données 
 
-    note=0  # la note sera sur 100 le produit le plus écolo est 0 et le moins ecolo est 10
+    note=0  # la note sera sur 100 le produit le plus écolo est 1 et le moins ecolo est 100
     cat=produit['categorie']
        
     note=Ecv_de_base[cat]/100 #vu les données on obtient un nombre entre 0.73 et 33,1
